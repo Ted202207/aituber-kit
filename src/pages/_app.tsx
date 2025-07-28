@@ -10,7 +10,9 @@ import '@/styles/globals.css'
 import migrateStore from '@/utils/migrateStore'
 import i18n from '../lib/i18n'
 
-export default function App({ Component, pageProps }: AppProps) {
+import { SessionProvider } from 'next-auth/react'
+
+export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   useEffect(() => {
     const hs = homeStore.getState()
     const ss = settingsStore.getState()
@@ -35,9 +37,9 @@ export default function App({ Component, pageProps }: AppProps) {
   }, [])
 
   return (
-    <>
+    <SessionProvider session={session}>
       <Component {...pageProps} />
       <Analytics />
-    </>
+    </SessionProvider>
   )
 }
