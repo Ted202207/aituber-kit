@@ -14,7 +14,7 @@ import '@/lib/i18n'
 import { buildUrl } from '@/utils/buildUrl'
 import { YoutubeManager } from '@/components/youtubeManager'
 import { useSession } from 'next-auth/react'
-import { SignInButton, SignOutButton } from '@/components/authButton'
+import { AuthButton } from '@/components/authButton'
 
 const Home = () => {
   const { data: session } = useSession()
@@ -29,28 +29,30 @@ const Home = () => {
   const messageReceiverEnabled = settingsStore((s) => s.messageReceiverEnabled)
   const modelType = settingsStore((s) => s.modelType)
 
-  if (session) {
-    return (
-      <div className="relative h-[100svh] bg-cover" style={{ backgroundImage: bgUrl }}>
-        <div className="absolute top-4 right-4 z-10">
-          <SignOutButton />
-        </div>
-        <Meta />
-        <Introduction />
-        {modelType === 'vrm' ? <VrmViewer /> : <Live2DViewer />}
-        <Form />
-        <Menu />
-        <ModalImage />
-        {messageReceiverEnabled && <MessageReceiver />}
-        <Toasts />
-        <WebSocketManager />
-        <YoutubeManager />
-      </div>
-    )
-  }
   return (
-    <div className="h-[100svh] bg-cover flex items-center justify-center" style={{ backgroundImage: bgUrl }}>
-      <SignInButton />
+    <div className="relative h-[100svh] bg-cover" style={{ backgroundImage: bgUrl }}>
+      <div className="absolute top-4 right-4 z-10">
+        <AuthButton />
+      </div>
+      {!session && (
+        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <AuthButton />
+        </div>
+      )}
+      {session && (
+        <>
+          <Meta />
+          <Introduction />
+          {modelType === 'vrm' ? <VrmViewer /> : <Live2DViewer />}
+          <Form />
+          <Menu />
+          <ModalImage />
+          {messageReceiverEnabled && <MessageReceiver />}
+          <Toasts />
+          <WebSocketManager />
+          <YoutubeManager />
+        </>
+      )}
     </div>
   )
 }
