@@ -13,7 +13,7 @@ import settingsStore from '@/features/stores/settings'
 import '@/lib/i18n'
 import { buildUrl } from '@/utils/buildUrl'
 import { YoutubeManager } from '@/components/youtubeManager'
-import { useSession, signIn, signOut } from "next-auth/react"
+import { useSession, signIn, signOut } from 'next-auth/react'
 
 const Home = () => {
   const { data: session } = useSession()
@@ -46,8 +46,11 @@ const Home = () => {
     )
   }
   return (
-    <div className="h-[100svh] bg-cover flex items-center justify-center" style={{ backgroundImage: bgUrl }}>
-      <button onClick={() => signIn("google")}>Sign in with Google</button>
+    <div
+      className="h-[100svh] bg-cover flex items-center justify-center"
+      style={{ backgroundImage: bgUrl }}
+    >
+      <button onClick={() => signIn('google')}>Sign in with Google</button>
     </div>
   )
 }
