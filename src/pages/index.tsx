@@ -13,7 +13,8 @@ import settingsStore from '@/features/stores/settings'
 import '@/lib/i18n'
 import { buildUrl } from '@/utils/buildUrl'
 import { YoutubeManager } from '@/components/youtubeManager'
-import { useSession, signIn, signOut } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
+import { SignInButton, SignOutButton } from '@/components/authButton'
 
 const Home = () => {
   const { data: session } = useSession()
@@ -30,7 +31,10 @@ const Home = () => {
 
   if (session) {
     return (
-      <div className="h-[100svh] bg-cover" style={{ backgroundImage: bgUrl }}>
+      <div className="relative h-[100svh] bg-cover" style={{ backgroundImage: bgUrl }}>
+        <div className="absolute top-4 right-4 z-10">
+          <SignOutButton />
+        </div>
         <Meta />
         <Introduction />
         {modelType === 'vrm' ? <VrmViewer /> : <Live2DViewer />}
@@ -41,16 +45,12 @@ const Home = () => {
         <Toasts />
         <WebSocketManager />
         <YoutubeManager />
-        <button onClick={() => signOut()}>Sign out</button>
       </div>
     )
   }
   return (
-    <div
-      className="h-[100svh] bg-cover flex items-center justify-center"
-      style={{ backgroundImage: bgUrl }}
-    >
-      <button onClick={() => signIn('google')}>Sign in with Google</button>
+    <div className="h-[100svh] bg-cover flex items-center justify-center" style={{ backgroundImage: bgUrl }}>
+      <SignInButton />
     </div>
   )
 }
