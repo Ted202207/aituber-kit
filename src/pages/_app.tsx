@@ -12,7 +12,10 @@ import i18n from '../lib/i18n'
 
 import { SessionProvider } from 'next-auth/react'
 
-export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppProps) {
   useEffect(() => {
     const hs = homeStore.getState()
     const ss = settingsStore.getState()

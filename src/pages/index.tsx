@@ -30,7 +30,10 @@ const Home = () => {
   const modelType = settingsStore((s) => s.modelType)
 
   return (
-    <div className="relative h-[100svh] bg-cover" style={{ backgroundImage: bgUrl }}>
+    <div
+      className="relative h-[100svh] bg-cover"
+      style={{ backgroundImage: bgUrl }}
+    >
       <div className="absolute top-4 right-4 z-10">
         <AuthButton />
       </div>
